@@ -1,0 +1,92 @@
+services:
+# App
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    networks:
+      - app-network
+    volumes:
+      - docs-volume:/app/docs/docs
+      - coverage-volume:/app/docs/coverage
+      - test-volume:/app/docs/test
+
+# Landing page
+  landing-page:
+    image: ubuntu/nginx
+    container_name: landing-page
+    networks:
+      - app-network
+    restart: always
+    volumes:
+      - ./pages/landingpage/website:/var/www/html/
+      - ./pages/landingpage/sites-available:/etc/nginx/sites-available
+    depends_on:
+      - app
+
+# Jacoco
+  docs:
+    image: ubuntu/apache2
+    container_name: docs
+    networks:
+      - app-network
+    restart: always
+    volumes:
+      - docs-volume:/var/www/html/
+      - ./pages/docs/sites-available:/etc/apache2/sites-available
+    depends_on:
+      - app
+
+# Coverage report
+  coverage:
+    image: ubuntu/nginx
+    container_name: coverage
+    networks:
+      - app-network
+    restart: always
+    volumes:
+      - coverage-volume:/var/www/html/
+      - ./pages/coverage/sites-available:/etc/nginx/sites-available
+    depends_on:
+      - app
+# Jacoco report
+  test:
+    image: ubuntu/nginx
+    container_name: test
+    networks:
+      - app-network
+    restart: always
+    volumes:
+      - test-volume:/var/www/html/
+      - ./pages/test/sites-available:/etc/nginx/sites-available
+    depends_on:
+      - app
+
+  proxy:
+    image: ubuntu/nginx
+    container_name: proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    networks:
+      - app-network
+    depends_on:
+      - app
+      - docs
+      - coverage
+      - test
+      - landing-page
+    volumes:
+      - ./pages/proxy/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./pages/proxy/certs:/etc/nginx/certs
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  docs-volume:
+  coverage-volume:
+  test-volume:

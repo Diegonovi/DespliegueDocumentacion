@@ -1,0 +1,26 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    root /var/www/html/app.com;
+    index index.html;
+
+    # Configuración para la raíz
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Personalizar la página de error 404
+    error_page 404 /error_404.html;
+    location = /error_404.html {
+        root /var/www/html/app.com;
+        internal;
+    }
+
+    # la página de error 500
+    error_page 500 502 503 504 /error_500.html;
+    location = /error_500.html {
+        root /var/www/html/app.com;
+        internal;
+    }
+}
