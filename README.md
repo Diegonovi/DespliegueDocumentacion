@@ -4,9 +4,9 @@ Este proyecto consiste en:
 - Usar docker para crear distintos servidores que contienen:
     - Un reverse proxy en Nginx
     - Una página /"app.com/" que redirecciona a diferentes subdirectorios.
-    - Una página que contiene la documentacion que genera Javadoc bajo el subdirectorio /"//docs/" en in servidor Apache.
-    - Una página que contiene el resultado de los tests de la aplicación bajo el subdirectorio /"//test/" en un servidor Nginx.
-    - Una página que contiene la documentacion generada por Jacoco con la covertura de los testa de la aplicación bajo el subdirectorio /"//coverage/" en un servidor Nginx.
+    - Una página que contiene la documentacion que genera Javadoc bajo el subdirectorio "/docs" en in servidor Apache.
+    - Una página que contiene el resultado de los tests de la aplicación bajo el subdirectorio "/test" en un servidor Nginx.
+    - Una página que contiene la documentacion generada por Jacoco con la covertura de los testa de la aplicación bajo el subdirectorio "/coverage" en un servidor Nginx.
 <br/>
 ###Proceso
 
@@ -18,5 +18,3 @@ Luego tuve que crear un Docker Compose y un Dockerfile que tiene las siguientes 
 - Diferentes volúmenes para cada informe.
 - Una network para que los contenedores se puedan comunicar entre si.
 - El contenedor com el reverse proxy muestra los puertos 80 y 403 (para conexiones https"
-
-- 
