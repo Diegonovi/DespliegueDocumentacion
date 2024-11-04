@@ -8,8 +8,7 @@ Este proyecto consiste en:
     - Una página que contiene el resultado de los tests de la aplicación bajo el subdirectorio "/test" en un servidor Nginx.
     - Una página que contiene la documentacion generada por Jacoco con la covertura de los testa de la aplicación bajo el subdirectorio "/coverage" en un servidor Nginx.
 <br/>
-### Proceso
-
+#### Proceso
 
 Para realizar el trabajo primero hice un aaplicación en Java muy simple con una funcion solo y un test para dicha función. 
 
